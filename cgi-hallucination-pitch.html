@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Hallucination Mitigation — Funding Proposal</title>
+  <style>
+    :root {
+      --cgi-red: #E31937;
+      --cgi-deep-red: #991F3D;
+      --cgi-amber: #F2A200;
+      --cgi-gray: #A5ACB0;
+      --cgi-sky: #A1C4D0;
+      --cgi-dark: #1A1A1A;
+      --cgi-white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cgi-white);
+      color: var(--cgi-dark);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slides-container { position: relative; width: 100%; height: 100vh; }
+
+    .slide {
+      position: absolute; inset: 0; display: none;
+      flex-direction: column; padding: 60px 80px;
+      animation: fadeIn 0.4s ease;
+    }
+    .slide.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-mark {
+      position: absolute; top: 30px; left: 50px;
+      font-weight: 800; font-size: 1.5rem;
+      letter-spacing: -1px; color: var(--cgi-red);
+    }
+
+    .slide-number {
+      position: absolute; top: 30px; right: 50px;
+      font-size: 0.8rem; color: var(--cgi-gray); font-weight: 600;
+    }
+
+    .eyebrow {
+      font-size: 0.85rem; color: var(--cgi-red);
+      font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    /* ===== SLIDE 1: THE SOLUTION ===== */
+    .slide-1 { background: var(--cgi-white); justify-content: center; }
+
+    .slide-1 h1 {
+      font-size: 2.8rem; font-weight: 700;
+      line-height: 1.15; margin-bottom: 12px; max-width: 900px;
+    }
+    .slide-1 h1 .red { color: var(--cgi-red); }
+
+    .slide-1 .tagline {
+      font-size: 1.05rem; color: #555;
+      margin-bottom: 30px; max-width: 780px; line-height: 1.5;
+    }
+
+    .underline {
+      width: 55px; height: 4px;
+      background: var(--cgi-red); margin-bottom: 28px;
+    }
+
+    .framework {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; margin-bottom: 28px;
+    }
+
+    .layer {
+      padding: 20px 18px; background: #FAF8F8;
+      border-top: 4px solid var(--cgi-red);
+    }
+
+    .layer .step {
+      display: inline-block; background: var(--cgi-red);
+      color: var(--cgi-white); font-size: 0.7rem;
+      font-weight: 700; padding: 3px 8px;
+      border-radius: 3px; letter-spacing: 1px; margin-bottom: 10px;
+    }
+
+    .layer .title {
+      font-weight: 700; font-size: 1rem;
+      margin-bottom: 6px; color: var(--cgi-dark);
+    }
+
+    .layer .desc {
+      font-size: 0.82rem; color: #555; line-height: 1.45;
+    }
+
+    .proof-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 25px; padding: 18px 25px;
+      background: var(--cgi-dark); color: var(--cgi-white);
+    }
+
+    .proof-stat { display: flex; flex-direction: column; }
+
+    .proof-stat .num {
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--cgi-red); line-height: 1;
+    }
+
+    .proof-stat .label {
+      font-size: 0.78rem; color: var(--cgi-gray);
+      margin-top: 4px; line-height: 1.3;
+    }
+
+    /* ===== SLIDE 2: THE ASK ===== */
+    .slide-2 {
+      background: var(--cgi-dark); color: var(--cgi-white);
+      justify-content: center;
+    }
+    .slide-2 .logo-mark { color: var(--cgi-white); }
+
+    .slide-2 h1 {
+      font-size: 2.6rem; font-weight: 700;
+      line-height: 1.2; margin-bottom: 12px; max-width: 900px;
+    }
+    .slide-2 h1 .red { color: var(--cgi-red); }
+
+    .slide-2 .tagline {
+      font-size: 1.05rem; color: var(--cgi-gray);
+      margin-bottom: 30px; max-width: 780px; line-height: 1.5;
+    }
+
+    .investment-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      gap: 30px; margin-bottom: 28px;
+    }
+
+    .invest-box {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 22px 25px;
+      border-left: 4px solid var(--cgi-red);
+    }
+
+    .invest-box h3 {
+      font-size: 0.85rem; color: var(--cgi-red);
+      text-transform: uppercase; letter-spacing: 2px;
+      font-weight: 700; margin-bottom: 14px;
+    }
+
+    .invest-box .line-item {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; font-size: 0.92rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .invest-box .line-item:last-child {
+      border-bottom: none; font-weight: 700;
+      font-size: 1rem; padding-top: 12px; color: var(--cgi-red);
+    }
+
+    .invest-box .line-item span:last-child { font-weight: 600; }
+
+    .return-box {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 22px 25px;
+      border-left: 4px solid var(--cgi-amber);
+    }
+
+    .return-box h3 {
+      font-size: 0.85rem; color: var(--cgi-amber);
+      text-transform: uppercase; letter-spacing: 2px;
+      font-weight: 700; margin-bottom: 14px;
+    }
+
+    .return-box ul { list-style: none; }
+
+    .return-box li {
+      font-size: 0.92rem; padding: 6px 0 6px 20px;
+      position: relative; line-height: 1.5;
+    }
+
+    .return-box li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--cgi-amber); font-weight: 700;
+    }
+
+    .ask-box {
+      background: var(--cgi-red); padding: 22px 30px;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 25px;
+    }
+
+    .ask-box .ask-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      opacity: 0.9; margin-bottom: 4px;
+    }
+
+    .ask-box .ask-text {
+      font-size: 1.1rem; font-weight: 700; line-height: 1.35;
+    }
+
+    .ask-box .ask-sub {
+      font-size: 0.85rem; opacity: 0.9; margin-top: 4px;
+    }
+
+    .ask-box .cta {
+      background: var(--cgi-white); color: var(--cgi-red);
+      padding: 12px 22px; font-weight: 700;
+      border-radius: 4px; white-space: nowrap; font-size: 0.95rem;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%); display: flex;
+      gap: 12px; align-items: center; z-index: 10;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 6px 14px; border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .nav button {
+      background: var(--cgi-red); color: var(--cgi-white);
+      border: none; padding: 8px 16px;
+      border-radius: 25px; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .nav button:hover { background: var(--cgi-deep-red); }
+    .nav button:disabled { background: var(--cgi-gray); cursor: not-allowed; }
+
+    .counter {
+      font-size: 0.85rem; color: var(--cgi-dark);
+      min-width: 40px; text-align: center; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="slides-container">
+
+    <!-- SLIDE 1: THE SOLUTION -->
+    <section class="slide slide-1 active">
+      <div class="logo-mark">CGI</div>
+      <div class="slide-number">01 / 02</div>
+
+      <div class="eyebrow">AI Assurance Initiative</div>
+      <h1>A four-layer framework to <span class="red">eliminate hallucinations</span> in client-facing AI.</h1>
+      <p class="tagline">Hallucinations are a solved engineering problem — when you invest in the right controls. Here's the stack we propose to deploy across BU workflows.</p>
+      <div class="underline"></div>
+
+      <div class="framework">
+        <div class="layer">
+          <div class="step">LAYER 1</div>
+          <div class="title">Ground in Sources</div>
+          <div class="desc">Retrieval-Augmented Generation forces the model to cite verified internal documents — not invent facts.</div>
+        </div>
+        <div class="layer">
+          <div class="step">LAYER 2</div>
+          <div class="title">Automated Guardrails</div>
+          <div class="desc">Citation validation, schema checks, and fact-scoring run on every output before it reaches a human.</div>
+        </div>
+        <div class="layer">
+          <div class="step">LAYER 3</div>
+          <div class="title">Human Review Gates</div>
+          <div class="desc">Risk-tiered approval: light-touch for internal use, mandatory sign-off for client and regulated deliverables.</div>
+        </div>
+        <div class="layer">
+          <div class="step">LAYER 4</div>
+          <div class="title">Continuous Evaluation</div>
+          <div class="desc">Hallucination-rate dashboards per workflow, with monthly drift monitoring and prompt regression tests.</div>
+        </div>
+      </div>
+
+      <div class="proof-strip">
+        <div class="proof-stat">
+          <div class="num">~80%</div>
+          <div class="label">Reduction in hallucination rate with RAG + guardrails (industry benchmarks)</div>
+        </div>
+        <div class="proof-stat">
+          <div class="num">40%</div>
+          <div class="label">Faster delivery when reviewers can trust AI output by default</div>
+        </div>
+        <div class="proof-stat">
+          <div class="num">100%</div>
+          <div class="label">Audit traceability for every AI-generated deliverable</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE ASK -->
+    <section class="slide slide-2">
+      <div class="logo-mark">CGI</div>
+      <div class="slide-number">02 / 02</div>
+
+      <div class="eyebrow">Funding Proposal</div>
+      <h1>A focused 12-week investment to build BU-wide <span class="red">AI assurance capability</span>.</h1>
+      <p class="tagline">Contained scope, clear deliverables, reusable playbook — designed to pay back within the first client engagement.</p>
+      <div class="underline"></div>
+
+      <div class="investment-grid">
+        <div class="invest-box">
+          <h3>The Investment</h3>
+          <div class="line-item"><span>RAG platform setup (3 engineers × 12 wks)</span><span>TBD</span></div>
+          <div class="line-item"><span>Guardrails & eval tooling</span><span>TBD</span></div>
+          <div class="line-item"><span>1 pilot workflow integration</span><span>TBD</span></div>
+          <div class="line-item"><span>Playbook & enablement materials</span><span>TBD</span></div>
+          <div class="line-item"><span>Total ask</span><span>$XXX K</span></div>
+        </div>
+
+        <div class="return-box">
+          <h3>The Return</h3>
+          <ul>
+            <li>Reusable assurance playbook across every BU AI engagement</li>
+            <li>De-risked client delivery — protects existing revenue</li>
+            <li>New service line: "CGI Trusted AI" offering</li>
+            <li>Competitive differentiator vs. firms without governance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ask-box">
+        <div>
+          <div class="ask-label">The Ask</div>
+          <div class="ask-text">Approve $XXX K and a 12-week runway to operationalize AI assurance in our BU.</div>
+          <div class="ask-sub">Outcome: production-ready framework + one validated pilot by end of Q2.</div>
+        </div>
+        <div class="cta">Let's approve →</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn">← Prev</button>
+    <span class="counter" id="counter">1 / 2</span>
+    <button id="nextBtn">Next →</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('counter');
+    let current = 0;
+
+    function show(index) {
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => current > 0 && show(current - 1));
+    nextBtn.addEventListener('click', () => current < slides.length - 1 && show(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && current < slides.length - 1) show(current + 1);
+      if (e.key === 'ArrowLeft'  && current > 0) show(current - 1);
+    });
+
+    show(0);
+  </script>
+</body>
+</html>
