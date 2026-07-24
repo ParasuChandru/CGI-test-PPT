@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -10,7 +12,7 @@ class OverrideRequest(BaseModel):
 
 class DecisionRequest(BaseModel):
     decision: str = Field(pattern="^(approved|rejected|modified)$")
-    reason: str | None = None
+    reason: Optional[str] = None
 
 
 class AgentStartRequest(BaseModel):

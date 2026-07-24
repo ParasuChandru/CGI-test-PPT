@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import time
 import uuid
+from typing import Optional
 
 from . import db
 
@@ -73,7 +74,7 @@ def _classify(text: str) -> str:
     return "unrecognized"
 
 
-def _approved_recommendation(policy_id: str) -> dict | None:
+def _approved_recommendation(policy_id: str) -> Optional[dict]:
     with db.get_conn() as conn:
         row = conn.execute(
             "SELECT * FROM recommendations WHERE policy_id = ? AND status = 'approved' "

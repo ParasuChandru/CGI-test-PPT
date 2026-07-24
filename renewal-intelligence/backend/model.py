@@ -13,6 +13,7 @@ with arithmetic, not a separate explainer model.
 from __future__ import annotations
 
 import time
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -128,7 +129,7 @@ def train(df: pd.DataFrame, model_version: str = MODEL_VERSION) -> dict:
     }
 
 
-def load_model_meta(model_version: str = MODEL_VERSION) -> dict | None:
+def load_model_meta(model_version: str = MODEL_VERSION) -> Optional[dict]:
     with db.get_conn() as conn:
         row = conn.execute(
             "SELECT * FROM model_meta WHERE model_version = ?", (model_version,)

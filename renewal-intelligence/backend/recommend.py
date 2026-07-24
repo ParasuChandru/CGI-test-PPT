@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import time
 import uuid
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -131,7 +132,7 @@ def persist_recommendations(recs: list[dict]) -> None:
         )
 
 
-def record_decision(rec_id: str, actor_role: str, actor_id: str, decision: str, reason: str | None) -> None:
+def record_decision(rec_id: str, actor_role: str, actor_id: str, decision: str, reason: Optional[str]) -> None:
     """decision in {'approved', 'rejected', 'modified'} — FR-406/FR-407."""
     with db.get_conn() as conn:
         conn.execute(
