@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Renewal Intelligence — Stage 0 POC</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">CGI</div>
+    <div class="title">Renewal Intelligence — Stage 0 synthetic POC</div>
+    <label for="roleSelect">Role</label>
+    <select id="roleSelect">
+      <option value="manager">Underwriting Manager</option>
+      <option value="underwriter">Underwriter</option>
+      <option value="analyst">Retention/Sales Analyst</option>
+      <option value="pricing">Pricing / Actuarial</option>
+      <option value="service_agent">Service Agent</option>
+      <option value="customer">Customer</option>
+    </select>
+    <label for="userId">User</label>
+    <input id="userId" type="text" value="demo-user" size="10" />
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <main>
+    <div id="globalError"></div>
+
+    <section class="view" id="view-portfolio">
+      <h2>Portfolio analytics <span class="tag">FR-500</span></h2>
+      <p class="subtitle">Aggregate view — available to Manager, Underwriter, Analyst.</p>
+      <div class="grid" id="portfolioStats"></div>
+      <div class="grid">
+        <div class="card"><h3>Renewal funnel (FR-501)</h3><div id="funnelChart"></div></div>
+        <div class="card"><h3>Driver mix (FR-503)</h3><div id="driverMixChart"></div></div>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Lapse rate by line (FR-502)</h3><div id="lapseByLine"></div></div>
+        <div class="card"><h3>Lapse rate by tenure band (FR-502)</h3><div id="lapseByTenure"></div></div>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>A/B holdout uplift (FR-408 / §6.2)</h3><div id="holdoutBox"></div></div>
+        <div class="card"><h3>Offer approval rate (§6.2 target ≥60%)</h3><div id="approvalBox"></div></div>
+      </div>
+      <div class="card">
+        <h3>Export (FR-506)</h3>
+        <button class="btn ghost" id="exportBtn">Download policy-level CSV</button>
+      </div>
+    </section>
+
+    <section class="view" id="view-policies">
+      <h2>At-risk policies <span class="tag">FR-200 / FR-300</span></h2>
+      <p class="subtitle">Score, dominant driver, recommendation. Click a row for detail.</p>
+      <div id="policiesTableWrap"></div>
+      <div id="policyDetail"></div>
+    </section>
+
+    <section class="view" id="view-recommendations">
+      <h2>Recommendation approvals <span class="tag">FR-400 / FR-406</span></h2>
+      <p class="subtitle">Nothing releases to a customer without a decision here. Holdout-control policies cannot be approved (FR-408).</p>
+      <div id="recQueue"></div>
+    </section>
+
+    <section class="view" id="view-model">
+      <h2>Model monitoring <span class="tag">FR-207</span></h2>
+      <div class="grid" id="modelPerf"></div>
+      <div class="card" id="modelInternalsCard" style="display:none">
+        <h3>Model internals (NFR-104 — Manager / Pricing only)</h3>
+        <div id="modelInternals"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-audit">
+      <h2>Audit log <span class="tag">NFR-106</span></h2>
+      <div id="auditTableWrap"></div>
+    </section>
+
+    <section class="view" id="view-lookup">
+      <h2>Customer explanation lookup <span class="tag">NFR-103</span></h2>
+      <p class="subtitle">Service agent view: reason and recommended action only — never the raw churn score or model internals.</p>
+      <div class="hint-box">Try e.g. a policy ID from the Policies tab, or leave blank for a random at-risk example.</div>
+      <input type="text" id="lookupPolicyId" placeholder="POL-000123" />
+      <button class="btn" id="lookupBtn" style="margin-top:8px">Look up</button>
+      <div id="lookupResult" style="margin-top:16px"></div>
+    </section>
+
+    <section class="view" id="view-chat">
+      <h2>Renewal assistant <span class="tag">FR-600</span></h2>
+      <p class="subtitle">Scripted, bounded-knowledge-base flow (FR-605) — never free-generates about pricing, escalates on cancellation or out-of-scope requests (FR-604).</p>
+      <input type="text" id="chatPolicyId" placeholder="POL-000123" />
+      <button class="btn" id="chatStartBtn" style="margin-top:8px">Start conversation</button>
+      <div class="chat-window" id="chatWindow" style="margin-top:14px"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type a message..." disabled />
+        <button class="btn" id="chatSendBtn" disabled>Send</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
