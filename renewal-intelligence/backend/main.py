@@ -46,6 +46,12 @@ def health():
     return {"status": "ok", "seeded": db.is_seeded()}
 
 
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    from fastapi import Response
+    return Response(status_code=204)
+
+
 # --- Model (FR-200, NFR-104) ----------------------------------------------
 
 @app.get("/model/performance")
