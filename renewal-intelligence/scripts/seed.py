@@ -23,6 +23,9 @@ def run(n_policies: int = 8000) -> dict:
 
     db.init_db()
     with db.get_conn() as conn:
+        conn.execute("DELETE FROM decisions")
+        conn.execute("DELETE FROM overrides")
+        conn.execute("DELETE FROM transcripts")
         conn.execute("DELETE FROM recommendations")
         conn.execute("DELETE FROM attributions")
         conn.execute("DELETE FROM scores")
