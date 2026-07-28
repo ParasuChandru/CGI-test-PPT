@@ -1,0 +1,5 @@
+--- a/py/services.py
++++ b/py/services.py
+@@ -6 +6 @@
+-    name = query("SELECT name FROM users WHERE id=" + str(user_id))
++    name = query("SELECT name, email FROM users WHERE id=" + str(user_id))

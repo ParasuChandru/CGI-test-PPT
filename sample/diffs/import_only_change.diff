@@ -1,0 +1,5 @@
+--- a/py/api.py
++++ b/py/api.py
+@@ -1 +1 @@
+-from services import get_user, create_user
++from services import get_user, create_user  # noqa: F401

@@ -1,0 +1,5 @@
+--- /dev/null
++++ b/py/new_module.py
+@@ -0,0 +1,2 @@
++def brand_new():
++    return 42

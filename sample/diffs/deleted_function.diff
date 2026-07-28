@@ -1,0 +1,10 @@
+--- a/py/services.py
++++ b/py/services.py
+@@ -3,5 +3,2 @@
+-
+-def legacy_lookup(user_id):
+-    return None
+-
+-
++
++
