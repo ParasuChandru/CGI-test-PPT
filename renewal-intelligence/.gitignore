@@ -2,3 +2,6 @@ venv/
 __pycache__/
 *.pyc
 data/*.db
+pptx-build/node_modules/
+pptx-build/icons/
+*.pdf
